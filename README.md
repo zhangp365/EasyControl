@@ -16,7 +16,7 @@ Recent advancements in Unet-based diffusion models, such as ControlNet and IP-Ad
 <img src='assets/method.jpg'>
 
 ## Todo List
-1. - [ ] Inference code 
+1. - [x] Inference code 
 2. - [ ] Pre-trained weights 
 3. - [ ] Training code
 
