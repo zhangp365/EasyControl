@@ -10,9 +10,12 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 
 <img src='assets/teaser.jpg'>
 
-## Abstract
-Recent advancements in Unet-based diffusion models, such as ControlNet and IP-Adapter, have introduced effective spatial and subject control mechanisms. However, the DiT (Diffusion Transformer) architecture still struggles with efficient and flexible control. To tackle this issue, we propose EasyControl, a novel framework designed to unify condition-guided diffusion transformers with high efficiency and flexibility. Our framework is built on three key innovations. First, we introduce a lightweight Condition Injection LoRA Module. This module processes conditional signals in isolation, acting as a plug-and-play solution. It avoids modifying the base model’s weights, ensuring compatibility with customized models and enabling the flexible injection of diverse conditions. Notably, this module also supports harmonious and robust zero-shot multi-condition generalization, even when trained only on single-condition data. Second, we propose a Position-Aware Training Paradigm. This approach standardizes input conditions to fixed resolutions, allowing the generation of images with arbitrary aspect ratios and flexible resolutions. At the same time, it optimizes computational efficiency, making the framework more practical for real-world applications. Third, we develop a Causal Attention Mechanism combined with the KV Cache technique, adapted for conditional generation tasks. This innovation significantly reduces the latency of image synthesis, improving the overall efficiency of the framework. Through extensive experiments, we demonstrate that EasyControl achieves exceptional performance across various application scenarios. These innovations collectively make our framework highly efficient, flexible, and suitable for a wide range of tasks.
+## Features
+Motivation:
+The architecture of diffusion models is transitioning from Unet-based to DiT (Diffusion Transformer). However, the DiT ecosystem lacks mature plugin support and faces challenges such as efficiency bottlenecks, conflicts in multi-condition coordination, and insufficient model adaptability, particularly in zero-shot multi-condition scenarios where these issues are most pronounced.
 
+Contribution:
+We propose Easy Control, an efficient and flexible unified conditional guidance DiT framework. By incorporating a lightweight Condition Injection LoRA module, a Position-Aware Training Paradigm, and a combination of causal attention mechanisms with KV Cache technology, we significantly enhance model compatibility, generation flexibility, and operational efficiency.
 <img src='assets/method.jpg'>
 
 ## Todo List
