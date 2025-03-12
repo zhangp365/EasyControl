@@ -11,12 +11,12 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 <img src='assets/teaser.jpg'>
 
 ## Features
-Motivation:
-The architecture of diffusion models is transitioning from Unet-based to DiT (Diffusion Transformer). However, the DiT ecosystem lacks mature plugin support and faces challenges such as efficiency bottlenecks, conflicts in multi-condition coordination, and insufficient model adaptability, particularly in zero-shot multi-condition scenarios where these issues are most pronounced.
-
-Contribution:
-We propose Easy Control, an efficient and flexible unified conditional guidance DiT framework. By incorporating a lightweight Condition Injection LoRA module, a Position-Aware Training Paradigm, and a combination of causal attention mechanisms with KV Cache technology, we significantly enhance model compatibility, generation flexibility, and operational efficiency.
+* **Motivation:**: The architecture of diffusion models is transitioning from Unet-based to DiT (Diffusion Transformer). However, the DiT ecosystem lacks mature plugin support and faces challenges such as efficiency bottlenecks, conflicts in multi-condition coordination, and insufficient model adaptability, particularly in zero-shot multi-condition scenarios where these issues are most pronounced.
+* **Contribution:**: We propose Easy Control, an efficient and flexible unified conditional guidance DiT framework. By incorporating a lightweight Condition Injection LoRA module, a Position-Aware Training Paradigm, and a combination of causal attention mechanisms with KV Cache technology, we significantly enhance model compatibility, generation flexibility, and inference efficiency.
 <img src='assets/method.jpg'>
+
+## News
+- **2025-03-12**: ⭐️ Inference code are released. Once we have ensured that everything is functioning correctly, the new model will be merged into this repository. Stay tuned for updates! 😊.
 
 ## Todo List
 1. - [x] Inference code 
