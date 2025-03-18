@@ -142,7 +142,7 @@ path = control_models["subject"]
 set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
 
 # Generate image
-prompt = "A nice car on the beach"
+prompt = "A SKS in the library"
 subject_image = "./test_imgs/subject_0.png"
 
 image = pipe(
