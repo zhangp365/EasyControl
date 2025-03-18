@@ -17,7 +17,7 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 
 ## News
 - **2025-03-12**: ⭐️ Inference code are released. Once we have ensured that everything is functioning correctly, the new model will be merged into this repository. Stay tuned for updates! 😊
-- **2025-03-17**: 🔥 We have released our spatial [pre-trained checkpoints](https://huggingface.co/Xiaojiu-Z/EasyControl/) on Hugging Face! You can now try out EasyControl with the official weights.
+- **2025-03-18**: 🔥 We have released our spatial [pre-trained checkpoints](https://huggingface.co/Xiaojiu-Z/EasyControl/) on Hugging Face! You can now try out EasyControl with the official weights.
 
 ## Installation
 
@@ -45,6 +45,7 @@ hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/hedsketch.safe
 hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/inpainting.safetensors", local_dir="./models")
 hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/pose.safetensors", local_dir="./models")
 hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/seg.safetensors", local_dir="./models")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/subject.safetensors", local_dir="./models")
 ```
 
 If you cannot access Hugging Face, you can use [hf-mirror](https://hf-mirror.com/) to download the models:
@@ -92,7 +93,6 @@ control_models = {
     "seg": f"{lora_path}/seg.safetensors",
     "inpainting": f"{lora_path}/inpainting.safetensors",
     "subject": f"{lora_path}/subject.safetensors",
-    "face": f"{lora_path}/face.safetensors" # not released yet
 }
 ```
 
@@ -224,14 +224,12 @@ clear_cache(pipe.transformer)
 - For optimal performance:
   - Start with `guidance_scale=3.5` and adjust based on results
   - Use `num_inference_steps=25` for a good balance of quality and speed
-- When combining multiple conditions:
-  - Make sure the subject conditions (subject, face) are before the spatial conditions (pose, canny, etc.)
-  - Balance the weights between conditions (e.g., `lora_weights=[[1], [0.8]]`)
+- When using set_multi_lora api, make sure the subject lora path(subject) is before the spatial lora path(canny, depth, hedsketch, etc.).
 
 ## Todo List
 1. - [x] Inference code 
 2. - [x] Spatial Pre-trained weights 
-3. - [ ] Subject Pre-trained weights 
+3. - [x] Subject Pre-trained weights 
 4. - [ ] Training code
 
 
