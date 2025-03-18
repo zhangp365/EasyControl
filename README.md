@@ -39,12 +39,12 @@ Or download using Python script:
 
 ```python
 from huggingface_hub import hf_hub_download
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/canny.safetensors", local_dir="./checkpoints")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/depth.safetensors", local_dir="./checkpoints")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/hed.safetensors", local_dir="./checkpoints")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/inpainting.safetensors", local_dir="./checkpoints")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/pose.safetensors", local_dir="./checkpoints")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/seg.safetensors", local_dir="./checkpoints")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/canny.safetensors", local_dir="./models")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/depth.safetensors", local_dir="./models")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/hedsketch.safetensors", local_dir="./models")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/inpainting.safetensors", local_dir="./models")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/pose.safetensors", local_dir="./models")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/seg.safetensors", local_dir="./models")
 ```
 
 If you cannot access Hugging Face, you can use [hf-mirror](https://hf-mirror.com/) to download the models:
@@ -54,8 +54,9 @@ huggingface-cli download --resume-download Xiaojiu-Z/EasyControl --local-dir che
 ```
 
 ## Usage
-
 Here's a basic example of using EasyControl:
+
+### Model Initialization
 
 ```python
 import torch
@@ -86,19 +87,103 @@ lora_path = "./models"
 control_models = {
     "canny": f"{lora_path}/canny.safetensors",
     "depth": f"{lora_path}/depth.safetensors",
-    "hed": f"{lora_path}/hed.safetensors",
+    "hedsketch": f"{lora_path}/hedsketch.safetensors",
     "pose": f"{lora_path}/pose.safetensors",
     "seg": f"{lora_path}/seg.safetensors",
-    "inpainting": f"{lora_path}/inpainting.safetensors"
+    "inpainting": f"{lora_path}/inpainting.safetensors",
+    "subject": f"{lora_path}/subject.safetensors",
+    "face": f"{lora_path}/face.safetensors" # not released yet
 }
+```
 
-# Single condition control example
-path = control_models["depth"]
+### Single Condition Control
+
+```python
+# Single spatial condition control example
+path = control_models["canny"]
 set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
 
 # Generate image
-prompt = "A girl in the library"
-spatial_image = Image.open("./test_imgs/depth.png").convert("RGB")
+prompt = "A nice car on the beach"
+spatial_image = "./test_imgs/canny.png"
+
+image = pipe(
+    prompt,
+    height=720,
+    width=992,
+    guidance_scale=3.5,
+    num_inference_steps=25,
+    max_sequence_length=512,
+    generator=torch.Generator("cpu").manual_seed(5),
+    spatial_images=[spatial_image],
+    cond_size=512,
+).images[0]
+
+# Clear cache after generation
+clear_cache(pipe.transformer)
+```
+
+<div align="center">
+<table>
+<tr>
+    <td><img src="test_imgs/canny.png" alt="Canny Condition" width="400"/></td>
+    <td><img src="assets/result_canny.png" alt="Generated Result" width="400"/></td>
+</tr>
+<tr>
+    <td align="center">Canny Condition</td>
+    <td align="center">Generated Result</td>
+</tr>
+</table>
+</div>
+
+```python
+# Single subject condition control example
+path = control_models["subject"]
+set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
+
+# Generate image
+prompt = "A nice car on the beach"
+subject_image = "./test_imgs/subject_0.png"
+
+image = pipe(
+    prompt,
+    height=1024,
+    width=1024,
+    guidance_scale=3.5,
+    num_inference_steps=25,
+    max_sequence_length=512,
+    generator=torch.Generator("cpu").manual_seed(5),
+    subject_images=[subject_image],
+    cond_size=512,
+).images[0]
+
+# Clear cache after generation
+clear_cache(pipe.transformer)
+```
+
+<div align="center">
+<table>
+<tr>
+    <td><img src="test_imgs/subject_0.png" alt="Subject Condition" width="400"/></td>
+    <td><img src="assets/result_subject.png" alt="Generated Result" width="400"/></td>
+</tr>
+<tr>
+    <td align="center">Subject Condition</td>
+    <td align="center">Generated Result</td>
+</tr>
+</table>
+</div>
+
+### Multi-Condition Control
+
+```python
+# Multi-condition control example
+paths = [control_models["subject"], control_models["inpainting"]]
+set_multi_lora(pipe.transformer, paths, lora_weights=[[1], [1]], cond_size=512)
+
+prompt = "A SKS on the car"
+subject_images = ["./test_imgs/subject_1.png"]
+spatial_images = ["./test_imgs/inpainting.png"]
 
 image = pipe(
     prompt,
@@ -108,34 +193,40 @@ image = pipe(
     num_inference_steps=25,
     max_sequence_length=512,
     generator=torch.Generator("cpu").manual_seed(42),
-    spatial_images=[spatial_image],
+    subject_images=subject_images,
+    spatial_images=spatial_images,
     cond_size=512,
 ).images[0]
 
 # Clear cache after generation
 clear_cache(pipe.transformer)
-
-# Multi-condition control example
-paths = [control_models["pose"], control_models["seg"]]
-set_multi_lora(pipe.transformer, paths, lora_weights=[[1], [1]], cond_size=512)
-
-spatial_images = [
-    Image.open("./test_imgs/pose.png").convert("RGB"),
-    Image.open("./test_imgs/seg.png").convert("RGB")
-]
-
-image = pipe(
-    prompt,
-    height=768,
-    width=768,
-    guidance_scale=3.5,
-    num_inference_steps=25,
-    max_sequence_length=512,
-    generator=torch.Generator("cpu").manual_seed(42),
-    spatial_images=spatial_images,
-    cond_size=512,
-).images[0]
 ```
+
+<div align="center">
+<table>
+<tr>
+    <td><img src="test_imgs/subject_1.png" alt="Subject Condition" width="250"/></td>
+    <td><img src="test_imgs/inpainting.png" alt="Inpainting Condition" width="250"/></td>
+    <td><img src="assets/result_subject_inpainting.png" alt="Generated Result" width="250"/></td>
+</tr>
+<tr>
+    <td align="center">Subject Condition</td>
+    <td align="center">Inpainting Condition</td>
+    <td align="center">Generated Result</td>
+</tr>
+</table>
+</div>
+
+
+## Usage Tips
+
+- Clear cache after each generation using `clear_cache(pipe.transformer)`
+- For optimal performance:
+  - Start with `guidance_scale=3.5` and adjust based on results
+  - Use `num_inference_steps=25` for a good balance of quality and speed
+- When combining multiple conditions:
+  - Make sure the subject conditions (subject, face) are before the spatial conditions (pose, canny, etc.)
+  - Balance the weights between conditions (e.g., `lora_weights=[[1], [0.8]]`)
 
 ## Todo List
 1. - [x] Inference code 
