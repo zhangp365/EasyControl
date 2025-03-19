@@ -14,13 +14,25 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 
 ## Features
 * **Motivation:** The architecture of diffusion models is transitioning from Unet-based to DiT (Diffusion Transformer). However, the DiT ecosystem lacks mature plugin support and faces challenges such as efficiency bottlenecks, conflicts in multi-condition coordination, and insufficient model adaptability, particularly in zero-shot multi-condition combination scenarios where these issues are most pronounced.
-* **Contribution:** We propose EasyControl, an efficient and flexible unified conditional DiT framework. By incorporating a lightweight Condition Injection LoRA module, a Position-Aware Training Paradigm, and a combination of Causal Attention mechanisms with KV Cache technology, we significantly enhance model compatibility, generation flexibility, and inference efficiency.
+* **Contribution:** We propose EasyControl, an efficient and flexible unified conditional DiT framework. By incorporating a lightweight Condition Injection LoRA module, a Position-Aware Training Paradigm, and a combination of Causal Attention mechanisms with KV Cache technology, we significantly enhance **model compatibility** (enabling plug-and-play functionality and style lossless control), **generation flexibility** (supporting multiple resolutions, aspect ratios, and multi-condition combinations), and **inference efficiency**.
 <img src='assets/method.jpg'>
 
 ## News
 - **2025-03-12**: ⭐️ Inference code are released. Once we have ensured that everything is functioning correctly, the new model will be merged into this repository. Stay tuned for updates! 😊
 - **2025-03-18**: 🔥 We have released our [pre-trained checkpoints](https://huggingface.co/Xiaojiu-Z/EasyControl/) on Hugging Face! You can now try out EasyControl with the official weights.
 - **2025-03-19**: 🔥 We have released [huggingface demo](https://huggingface.co/spaces/jamesliu1217/EasyControl)! You can now try out EasyControl with the huggingface space, enjoy it!
+<div align="center">
+<table>
+<tr>
+    <td><img src="assets/example1.jpeg" alt="Example 1" width="400"/></td>
+    <td><img src="assets/example2.jpeg" alt="Example 2" width="400"/></td>
+</tr>
+<tr>
+    <td align="center">Example 1</td>
+    <td align="center">Example 2</td>
+</tr>
+</table>
+</div>
 
 ## Installation
 
