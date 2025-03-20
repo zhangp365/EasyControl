@@ -526,8 +526,8 @@ class FluxPipeline(DiffusionPipeline, FluxLoraLoaderMixin, FromSingleFileMixin):
             callback_on_step_end: Optional[Callable[[int, int, Dict], None]] = None,
             callback_on_step_end_tensor_inputs: List[str] = ["latents"],
             max_sequence_length: int = 512,
-            spatial_images=None,
-            subject_images=None,
+            spatial_images=[],
+            subject_images=[],
             cond_size=512,
     ):
 
@@ -577,6 +577,7 @@ class FluxPipeline(DiffusionPipeline, FluxLoraLoaderMixin, FromSingleFileMixin):
         if cond_number > 0:
             condition_image_ls = []
             for img in spatial_images:
+                print(img)
                 condition_image = self.image_processor.preprocess(img, height=self.cond_size, width=self.cond_size)
                 condition_image = condition_image.to(dtype=torch.float32)
                 condition_image_ls.append(condition_image)
@@ -656,6 +657,28 @@ class FluxPipeline(DiffusionPipeline, FluxLoraLoaderMixin, FromSingleFileMixin):
             guidance = guidance.expand(latents.shape[0])
         else:
             guidance = None
+
+        ## Caching conditions
+        # clean the cache
+        for name, attn_processor in self.transformer.attn_processors.items():
+            attn_processor.bank_kv.clear()
+        # cache with warmup latents
+        warmup_latents = latents[:, :32, :]
+        warmup_latent_ids = latent_image_ids[:cond_latents.shape[1]+32, :]
+        t = torch.tensor([timesteps[0]], device=device)
+        timestep = t.expand(warmup_latents.shape[0]).to(latents.dtype)
+        _ = self.transformer(
+                    hidden_states=warmup_latents,  
+                    cond_hidden_states=cond_latents,
+                    timestep=timestep/ 1000,
+                    guidance=guidance,
+                    pooled_projections=pooled_prompt_embeds,
+                    encoder_hidden_states=prompt_embeds,
+                    txt_ids=text_ids,
+                    img_ids=warmup_latent_ids,
+                    joint_attention_kwargs=self.joint_attention_kwargs,
+                    return_dict=False,
+                )[0]
 
         # 6. Denoising loop
         with self.progress_bar(total=num_inference_steps) as progress_bar:
