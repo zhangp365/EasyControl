@@ -663,8 +663,9 @@ class FluxPipeline(DiffusionPipeline, FluxLoraLoaderMixin, FromSingleFileMixin):
         for name, attn_processor in self.transformer.attn_processors.items():
             attn_processor.bank_kv.clear()
         # cache with warmup latents
-        warmup_latents = latents[:, :32, :]
-        warmup_latent_ids = latent_image_ids[:cond_latents.shape[1]+32, :]
+        start_idx = latents.shape[1] - 32
+        warmup_latents = latents[:, start_idx:, :]
+        warmup_latent_ids = latent_image_ids[start_idx:, :]
         t = torch.tensor([timesteps[0]], device=device)
         timestep = t.expand(warmup_latents.shape[0]).to(latents.dtype)
         _ = self.transformer(
