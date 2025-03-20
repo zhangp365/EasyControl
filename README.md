@@ -55,13 +55,13 @@ Or download using Python script:
 
 ```python
 from huggingface_hub import hf_hub_download
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/canny.safetensors", local_dir="./models")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/depth.safetensors", local_dir="./models")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/hedsketch.safetensors", local_dir="./models")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/inpainting.safetensors", local_dir="./models")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/pose.safetensors", local_dir="./models")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/seg.safetensors", local_dir="./models")
-hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/subject.safetensors", local_dir="./models")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/canny.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/depth.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/hedsketch.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/inpainting.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/pose.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/seg.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/subject.safetensors", local_dir="./")
 ```
 
 If you cannot access Hugging Face, you can use [hf-mirror](https://hf-mirror.com/) to download the models:
@@ -121,7 +121,7 @@ set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
 
 # Generate image
 prompt = "A nice car on the beach"
-spatial_image = Image.open("./test_imgs/canny.png")
+spatial_image = Image.open("./test_imgs/canny.png").convert("RGB")
 
 image = pipe(
     prompt,
@@ -159,7 +159,7 @@ set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
 
 # Generate image
 prompt = "A SKS in the library"
-subject_image = Image.open("./test_imgs/subject_0.png")
+subject_image = Image.open("./test_imgs/subject_0.png").convert("RGB")
 
 image = pipe(
     prompt,
@@ -198,8 +198,8 @@ paths = [control_models["subject"], control_models["inpainting"]]
 set_multi_lora(pipe.transformer, paths, lora_weights=[[1], [1]], cond_size=512)
 
 prompt = "A SKS on the car"
-subject_images = [Image.open("./test_imgs/subject_1.png")]
-spatial_images = [Image.open("./test_imgs/inpainting.png")]
+subject_images = [Image.open("./test_imgs/subject_1.png").convert("RGB")]
+spatial_images = [Image.open("./test_imgs/inpainting.png").convert("RGB")]
 
 image = pipe(
     prompt,
