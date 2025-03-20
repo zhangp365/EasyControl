@@ -2,6 +2,7 @@
 
 EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 
+<a href='https://easycontrol.github.io/'><img src='https://img.shields.io/badge/Project-Page-green'></a>
 <a href='https://arxiv.org/pdf/2503.07027'><img src='https://img.shields.io/badge/Technique-Report-red'></a> 
 <a href="https://huggingface.co/Xiaojiu-Z/EasyControl/"><img src="https://img.shields.io/badge/🤗_HuggingFace-Model-ffbd45.svg" alt="HuggingFace"></a>
 <a href='https://huggingface.co/spaces/jamesliu1217/EasyControl'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue'></a>
