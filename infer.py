@@ -13,7 +13,7 @@ def clear_cache(transformer):
 
 # Initialize model
 device = "cuda"
-base_path = "black-forest-labs/FLUX.1-dev/"  # Path to your base model
+base_path = "/tiamat-NAS/models/black-forest-labs/FLUX.1-dev/"  # Path to your base model
 pipe = FluxPipeline.from_pretrained(base_path, torch_dtype=torch.bfloat16, device=device)
 transformer = FluxTransformer2DModel.from_pretrained(
     base_path, 
