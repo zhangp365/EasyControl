@@ -121,7 +121,7 @@ set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
 
 # Generate image
 prompt = "A nice car on the beach"
-spatial_image = "./test_imgs/canny.png"
+spatial_image = Image.open("./test_imgs/canny.png")
 
 image = pipe(
     prompt,
@@ -159,7 +159,7 @@ set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
 
 # Generate image
 prompt = "A SKS in the library"
-subject_image = "./test_imgs/subject_0.png"
+subject_image = Image.open("./test_imgs/subject_0.png")
 
 image = pipe(
     prompt,
@@ -198,8 +198,8 @@ paths = [control_models["subject"], control_models["inpainting"]]
 set_multi_lora(pipe.transformer, paths, lora_weights=[[1], [1]], cond_size=512)
 
 prompt = "A SKS on the car"
-subject_images = ["./test_imgs/subject_1.png"]
-spatial_images = ["./test_imgs/inpainting.png"]
+subject_images = [Image.open("./test_imgs/subject_1.png")]
+spatial_images = [Image.open("./test_imgs/inpainting.png")]
 
 image = pipe(
     prompt,
