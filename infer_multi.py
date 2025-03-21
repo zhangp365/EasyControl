@@ -6,6 +6,8 @@ from src.lora_helper import set_single_lora, set_multi_lora
 
 from huggingface_hub import hf_hub_download
 hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/canny.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/inpainting.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/subject.safetensors", local_dir="./")
 
 def clear_cache(transformer):
     for name, attn_processor in transformer.attn_processors.items():
@@ -39,26 +41,29 @@ control_models = {
 # Single spatial condition control example
 path = control_models["canny"]
 set_single_lora(pipe.transformer, path, lora_weights=[1], cond_size=512)
+# Multi-condition control example
+paths = [control_models["subject"], control_models["inpainting"]]
+set_multi_lora(pipe.transformer, paths, lora_weights=[[1], [1]], cond_size=512)
 
-# Generate image
-prompt = "A nice car on the beach"
-
-spatial_image = Image.open("./test_imgs/canny.png")
+prompt = "A SKS on the car"
+subject_images = [Image.open("./test_imgs/subject_1.png").convert("RGB")]
+spatial_images = [Image.open("./test_imgs/inpainting.png").convert("RGB")]
 
 image = pipe(
     prompt,
-    height=768,
+    height=1024,
     width=1024,
     guidance_scale=3.5,
     num_inference_steps=25,
     max_sequence_length=512,
-    generator=torch.Generator("cpu").manual_seed(5),
-    spatial_images=[spatial_image],
-    subject_images=[],
+    generator=torch.Generator("cpu").manual_seed(42),
+    subject_images=subject_images,
+    spatial_images=spatial_images,
     cond_size=512,
 ).images[0]
+
+image.save("output_multi.png")
 
 # Clear cache after generation
 clear_cache(pipe.transformer)
 
-image.save("output.png")
