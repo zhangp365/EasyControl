@@ -36,7 +36,7 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 </table>
 </div>
 
-- **2025-04-01**: 🔥 New [Ghibli Control Lora Model](https://huggingface.co/spaces/jamesliu1217/EasyControl_Ghibli) is now released!! Transform portraits into Studio Ghibli-style artwork using this LoRA model. Trained on **only 100 real Asian faces** paired with **GPT-4o-generated Ghibli-style counterparts**, it preserves facial features while applying the iconic anime aesthetic.
+- **2025-04-01**: 🔥 New [Stylized Img2Img Control Model](https://huggingface.co/spaces/jamesliu1217/EasyControl_Ghibli) is now released!! Transform portraits into Studio Ghibli-style artwork using this LoRA model. Trained on **only 100 real Asian faces** paired with **GPT-4o-generated Ghibli-style counterparts**, it preserves facial features while applying the iconic anime aesthetic.
 
 <div align="center">
 <table>
