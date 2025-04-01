@@ -78,6 +78,7 @@ hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/inpainting.saf
 hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/pose.safetensors", local_dir="./")
 hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/seg.safetensors", local_dir="./")
 hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/subject.safetensors", local_dir="./")
+hf_hub_download(repo_id="Xiaojiu-Z/EasyControl", filename="models/Ghibli.safetensors", local_dir="./")
 ```
 
 If you cannot access Hugging Face, you can use [hf-mirror](https://hf-mirror.com/) to download the models:
