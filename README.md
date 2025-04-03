@@ -51,6 +51,8 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 </table>
 </div>
 
+- **2025-04-03**: Thanks to jax-explorer[https://github.com/jax-explorer], [Ghibli Img2Img Control ComfyUI Node](https://huggingface.co/spaces/jamesliu1217/EasyControl_Ghibli) is supported!
+
 ## Installation
 
 We recommend using Python 3.10 and PyTorch with CUDA support. To set up the environment:
