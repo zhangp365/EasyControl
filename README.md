@@ -275,6 +275,9 @@ clear_cache(pipe.transformer)
 ## Disclaimer
 The code of EasyControl is released under [Apache License](https://github.com/Xiaojiu-Z/EasyControl?tab=Apache-2.0-1-ov-file#readme) for both academic and commercial usage. Our released checkpoints are for research purposes only. Users are granted the freedom to create images using this tool, but they are obligated to comply with local laws and utilize it responsibly. The developers will not assume any responsibility for potential misuse by users.
 
+## Hiring/Cooperation
+- **2025-04-03**: If you are interested in EasyControl and beyond, or if you are interested in building 4o-like capacity (in a low-budget way, of course), we can collaborate offline in Shanghai/Beijing/Hong Kong/Singapore or online.
+Reach out: **jmliu1217@gmail.com (wechat: jiaming068870)**
 
 ## Citation
 ```
