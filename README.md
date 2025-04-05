@@ -51,7 +51,7 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 </table>
 </div>
 
-- **2025-04-03**: Thanks to [jax-explorer](https://github.com/jax-explorer), [Ghibli Img2Img Control ComfyUI Node](https://huggingface.co/spaces/jamesliu1217/EasyControl_Ghibli) is supported!
+- **2025-04-03**: Thanks to [jax-explorer](https://github.com/jax-explorer), [Ghibli Img2Img Control ComfyUI Node](https://github.com/jax-explorer/ComfyUI-easycontrol) is supported!
 
 ## Installation
 
