@@ -53,6 +53,21 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 
 - **2025-04-03**: Thanks to [jax-explorer](https://github.com/jax-explorer), [Ghibli Img2Img Control ComfyUI Node](https://github.com/jax-explorer/ComfyUI-easycontrol) is supported!
 
+- **2025-04-07**: 🔥 Thanks to the great work by [CFG-Zero*](https://github.com/WeichenFan/CFG-Zero-star) team, EasyControl is now integrated with CFG-Zero*!! With just a few lines of code, you can boost image fidelity and controllability!! You can download the modified code from [this link](https://github.com/WeichenFan/CFG-Zero-star/blob/main/models/easycontrol/infer.py) and try it.
+
+<table class="center">
+  <tr>
+    <td><img src="assets/CFG-Zero/image.webp" style="width:410px; height:auto;"></td>
+    <td><img src="assets/CFG-Zero/image_CFG.webp" style="width:410px; height:auto;"></td>
+    <td><img src="assets/CFG-Zero/image_CFG_zero_star.webp" style="width:410px; height:auto;"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Source Image</b></td>
+    <td align="center"><b>CFG</b></td>
+    <td align="center"><b>CFG-Zero*</b></td>
+  </tr>
+</table>
+
 ## Installation
 
 We recommend using Python 3.10 and PyTorch with CUDA support. To set up the environment:
