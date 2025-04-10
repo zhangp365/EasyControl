@@ -1,6 +1,4 @@
-# export MODEL_DIR="black-forest-labs/FLUX.1-dev" # your flux path
-export MODEL_DIR="/opt/liblibai-models/model-weights/black-forest-labs/FLUX.1-dev" # your flux path
-
+export MODEL_DIR="black-forest-labs/FLUX.1-dev" # your flux path
 export OUTPUT_DIR="./models/style_model"  # your save path
 export CONFIG="./default_config.yaml"
 export TRAIN_DATA="./examples/style.jsonl"  # your data jsonl file
