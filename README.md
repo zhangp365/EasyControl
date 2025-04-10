@@ -20,6 +20,7 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 <img src='assets/method.jpg'>
 
 ## News
+- **2025-04-11**: 🔥🔥🔥 Training code have been released. Recommanded Hardware: 4x NVIDIA H100, GPUs Memory: ~80GB GPU memory.
 - **2025-04-09**: ⭐️ The codes for the simple API have been released. If you wish to run the models on your personal machines, head over to the simple_api branch to access the relevant resources.
 
 - **2025-04-07**: 🔥 Thanks to the great work by [CFG-Zero*](https://github.com/WeichenFan/CFG-Zero-star) team, EasyControl is now integrated with CFG-Zero*!! With just a few lines of code, you can boost image fidelity and controllability!! You can download the modified code from [this link](https://github.com/WeichenFan/CFG-Zero-star/blob/main/models/easycontrol/infer.py) and try it.
@@ -389,7 +390,7 @@ demo.queue().launch()
 1. - [x] Inference code 
 2. - [x] Spatial Pre-trained weights 
 3. - [x] Subject Pre-trained weights 
-4. - [ ] Training code
+4. - [x] Training code
 
 
 ## Star History
