@@ -20,22 +20,24 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 <img src='assets/method.jpg'>
 
 ## News
-- **2025-04-09**: ⭐️ The codes for the simple API have been released. If you wish to run the models on your personal machines, head over to the simple_api branch to access the relevant resources. 
-- **2025-03-12**: ⭐️ Inference code are released. Once we have ensured that everything is functioning correctly, the new model will be merged into this repository. Stay tuned for updates! 😊
-- **2025-03-18**: 🔥 We have released our [pre-trained checkpoints](https://huggingface.co/Xiaojiu-Z/EasyControl/) on Hugging Face! You can now try out EasyControl with the official weights.
-- **2025-03-19**: 🔥 We have released [huggingface demo](https://huggingface.co/spaces/jamesliu1217/EasyControl)! You can now try out EasyControl with the huggingface space, enjoy it!
-<div align="center">
-<table>
-<tr>
-    <td><img src="assets/example1.jpeg" alt="Example 1" width="400"/></td>
-    <td><img src="assets/example2.jpeg" alt="Example 2" width="400"/></td>
-</tr>
-<tr>
-    <td align="center">Example 1</td>
-    <td align="center">Example 2</td>
-</tr>
+- **2025-04-09**: ⭐️ The codes for the simple API have been released. If you wish to run the models on your personal machines, head over to the simple_api branch to access the relevant resources.
+
+- **2025-04-07**: 🔥 Thanks to the great work by [CFG-Zero*](https://github.com/WeichenFan/CFG-Zero-star) team, EasyControl is now integrated with CFG-Zero*!! With just a few lines of code, you can boost image fidelity and controllability!! You can download the modified code from [this link](https://github.com/WeichenFan/CFG-Zero-star/blob/main/models/easycontrol/infer.py) and try it.
+
+<table class="center">
+  <tr>
+    <td><img src="assets/CFG-Zero/image.webp" style="width:410px; height:auto;"></td>
+    <td><img src="assets/CFG-Zero/image_CFG.webp" style="width:410px; height:auto;"></td>
+    <td><img src="assets/CFG-Zero/image_CFG_zero_star.webp" style="width:410px; height:auto;"></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Source Image</b></td>
+    <td align="center"><b>CFG</b></td>
+    <td align="center"><b>CFG-Zero*</b></td>
+  </tr>
 </table>
-</div>
+
+- **2025-04-03**: Thanks to [jax-explorer](https://github.com/jax-explorer), [Ghibli Img2Img Control ComfyUI Node](https://github.com/jax-explorer/ComfyUI-easycontrol) is supported!
 
 - **2025-04-01**: 🔥 New [Stylized Img2Img Control Model](https://huggingface.co/spaces/jamesliu1217/EasyControl_Ghibli) is now released!! Transform portraits into Studio Ghibli-style artwork using this LoRA model. Trained on **only 100 real Asian faces** paired with **GPT-4o-generated Ghibli-style counterparts**, it preserves facial features while applying the iconic anime aesthetic.
 
@@ -52,22 +54,22 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 </table>
 </div>
 
-- **2025-04-03**: Thanks to [jax-explorer](https://github.com/jax-explorer), [Ghibli Img2Img Control ComfyUI Node](https://github.com/jax-explorer/ComfyUI-easycontrol) is supported!
-
-- **2025-04-07**: 🔥 Thanks to the great work by [CFG-Zero*](https://github.com/WeichenFan/CFG-Zero-star) team, EasyControl is now integrated with CFG-Zero*!! With just a few lines of code, you can boost image fidelity and controllability!! You can download the modified code from [this link](https://github.com/WeichenFan/CFG-Zero-star/blob/main/models/easycontrol/infer.py) and try it.
-
-<table class="center">
-  <tr>
-    <td><img src="assets/CFG-Zero/image.webp" style="width:410px; height:auto;"></td>
-    <td><img src="assets/CFG-Zero/image_CFG.webp" style="width:410px; height:auto;"></td>
-    <td><img src="assets/CFG-Zero/image_CFG_zero_star.webp" style="width:410px; height:auto;"></td>
-  </tr>
-  <tr>
-    <td align="center"><b>Source Image</b></td>
-    <td align="center"><b>CFG</b></td>
-    <td align="center"><b>CFG-Zero*</b></td>
-  </tr>
+- **2025-03-19**: 🔥 We have released [huggingface demo](https://huggingface.co/spaces/jamesliu1217/EasyControl)! You can now try out EasyControl with the huggingface space, enjoy it!
+<div align="center">
+<table>
+<tr>
+    <td><img src="assets/example1.jpeg" alt="Example 1" width="400"/></td>
+    <td><img src="assets/example2.jpeg" alt="Example 2" width="400"/></td>
+</tr>
+<tr>
+    <td align="center">Example 1</td>
+    <td align="center">Example 2</td>
+</tr>
 </table>
+</div>
+
+- **2025-03-18**: 🔥 We have released our [pre-trained checkpoints](https://huggingface.co/Xiaojiu-Z/EasyControl/) on Hugging Face! You can now try out EasyControl with the official weights. 
+- **2025-03-12**: ⭐️ Inference code are released. Once we have ensured that everything is functioning correctly, the new model will be merged into this repository. Stay tuned for updates! 😊
 
 ## Installation
 
