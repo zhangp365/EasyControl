@@ -68,7 +68,7 @@ This document provides a step-by-step guide for training the model in this proje
 1. After training, use the following script for inference:
 
    ```bash
-   # Navigate to the original repository to use the cache
+   # Navigate to the original repository to use KV cache
    cd ..
    ```
 
