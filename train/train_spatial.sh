@@ -1,7 +1,7 @@
 export MODEL_DIR="black-forest-labs/FLUX.1-dev" # your flux path
 export OUTPUT_DIR="./models/pose_model"  # your save path
 export CONFIG="./default_config.yaml"
-export TRAIN_DATA="./examples/pose.jsonl" # your data jsonl file
+export TRAIN_DATA="./examples/circle100.jsonl" # your data jsonl file
 export LOG_PATH="$OUTPUT_DIR/log"
 
 CUDA_VISIBLE_DEVICES=0,1,2,3 accelerate launch --config_file $CONFIG train.py \
@@ -20,7 +20,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 accelerate launch --config_file $CONFIG train.py \
     --train_data_dir=$TRAIN_DATA \
     --learning_rate=1e-4 \
     --train_batch_size=1 \
-    --validation_prompt "A girl in the city." \
+    --validation_prompt "slate gray circle with plum background" \
     --num_train_epochs=1000 \
     --validation_steps=20 \
     --checkpointing_steps=20 \
