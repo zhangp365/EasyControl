@@ -24,7 +24,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 accelerate launch --config_file $CONFIG train.py \
     --num_train_epochs=1000 \
     --validation_steps=20 \
     --checkpointing_steps=20 \
-    --spatial_test_images "./examples/openpose_data/1.png" \
+    --spatial_test_images "./examples/fill100/source/100.png" \
     --subject_test_images None \
     --test_h 1024 \
     --test_w 1024 \
