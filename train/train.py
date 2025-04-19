@@ -556,10 +556,7 @@ def main(args):
         args.pretrained_model_name_or_path, args.revision, subfolder="text_encoder_2"
     )
 
-    if use_optimum:
-        quantize(text_encoder_cls_two, weights=qfloat8)
-        freeze(text_encoder_cls_two)
-        logger.info("t5 model quantized")  
+ 
 
     # Load scheduler and models
     noise_scheduler = FlowMatchEulerDiscreteScheduler.from_pretrained(
@@ -567,6 +564,12 @@ def main(args):
     )
     noise_scheduler_copy = copy.deepcopy(noise_scheduler)
     text_encoder_one, text_encoder_two = load_text_encoders(args, text_encoder_cls_one, text_encoder_cls_two)
+
+    if use_optimum:
+        quantize(text_encoder_two, weights=qfloat8)
+        freeze(text_encoder_two)
+        logger.info("t5 model quantized") 
+
     vae = AutoencoderKL.from_pretrained(
         args.pretrained_model_name_or_path,
         subfolder="vae",
