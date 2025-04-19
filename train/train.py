@@ -834,7 +834,29 @@ def main(args):
             with accelerator.accumulate(models_to_accumulate):
                 
                 tokens = [batch["text_ids_1"], batch["text_ids_2"]]
-                prompt_embeds, pooled_prompt_embeds, text_ids = encode_token_ids(text_encoders, tokens, accelerator)
+                
+                # 使用上下文管理器来控制模型的设备迁移
+                class DeviceManager:
+                    def __init__(self, model, target_device, dtype=None):
+                        self.model = model
+                        self.original_device = next(model.parameters()).device
+                        self.target_device = target_device
+                        self.dtype = dtype
+                    
+                    def __enter__(self):
+                        self.model.to(self.target_device, dtype=self.dtype if self.dtype is not None else None)
+                        return self.model
+                    
+                    def __exit__(self, exc_type, exc_val, exc_tb):
+                        if use_optimum:  # 只有在启用 optimum 时才卸载到 CPU
+                            self.model.to("cpu")
+                
+                # 使用上下文管理器将模型移到 GPU，完成后自动卸载
+                with DeviceManager(text_encoder_one, accelerator.device, weight_dtype) as enc1, \
+                     DeviceManager(text_encoder_two, accelerator.device) as enc2:
+                    prompt_embeds, pooled_prompt_embeds, text_ids = encode_token_ids([enc1, enc2], tokens, accelerator)
+                
+                # 确保张量在正确的设备上
                 prompt_embeds = prompt_embeds.to(dtype=vae.dtype, device=accelerator.device)
                 pooled_prompt_embeds = pooled_prompt_embeds.to(dtype=vae.dtype, device=accelerator.device)
                 text_ids = text_ids.to(dtype=vae.dtype, device=accelerator.device)
