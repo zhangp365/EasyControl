@@ -54,6 +54,13 @@ check_min_version("0.31.0.dev0")
 
 logger = get_logger(__name__)
 
+try:
+    from optimum.quanto import freeze, qfloat8, quantize
+    use_optimum = True
+except:
+    logger.info("optimum not installed")
+    use_optimum = False
+
 def log_validation(
         pipeline,
         args,
@@ -549,6 +556,11 @@ def main(args):
         args.pretrained_model_name_or_path, args.revision, subfolder="text_encoder_2"
     )
 
+    if use_optimum:
+        quantize(text_encoder_cls_two, weights=qfloat8)
+        freeze(text_encoder_cls_two)
+        logger.info("t5 model quantized")  
+
     # Load scheduler and models
     noise_scheduler = FlowMatchEulerDiscreteScheduler.from_pretrained(
         args.pretrained_model_name_or_path, subfolder="scheduler"
@@ -562,7 +574,8 @@ def main(args):
         variant=args.variant,
     )
     transformer = FluxTransformer2DModel.from_pretrained(
-        args.pretrained_model_name_or_path, subfolder="transformer", revision=args.revision, variant=args.variant
+        args.pretrained_model_name_or_path, subfolder="transformer", revision=args.revision, variant=args.variant,
+        torch_dtype=torch.bfloat16
     )
 
     # We only train the additional adapter LoRA layers
@@ -584,7 +597,7 @@ def main(args):
         raise ValueError(
             "Mixed precision training with bfloat16 is not supported on MPS. Please use fp16 (recommended) or fp32 instead."
         )
-
+    logger.info(f"Using {accelerator.device} with dtype {weight_dtype}")
     vae.to(accelerator.device, dtype=weight_dtype)
     transformer.to(accelerator.device, dtype=weight_dtype)
     text_encoder_one.to(accelerator.device, dtype=weight_dtype)
