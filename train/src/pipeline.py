@@ -702,7 +702,7 @@ class FluxPipeline(DiffusionPipeline, FluxLoraLoaderMixin, FromSingleFileMixin):
             num_channels_latents,
             height,
             width,
-            prompt_embeds.dtype,
+            self.vae.dtype,
             device,
             generator,
             subject_image,
