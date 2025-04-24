@@ -17,6 +17,12 @@ RUN --mount=type=cache,target=/root/.cache/pip pip3  install --no-cache-dir -r /
 RUN pip install --no-cache-dir bitsandbytes datasets wandb
 
 
+RUN apt update && apt install -y openssh-server && \
+    mkdir /var/run/sshd && \
+    echo 'root:1' | chpasswd && \
+    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
 ENV ROOT=/EasyControl
 
 FROM base as base_ready
@@ -24,6 +30,7 @@ RUN rm -rf /root/.cache/pip/*
 # Finalise app setup
 WORKDIR ${ROOT}
 EXPOSE 8188
+EXPOSE 22
 # Required for Python print statements to appear in logs
 ENV PYTHONUNBUFFERED=1
 # Force variant layers to sync cache by setting --build-arg BUILD_DATE
@@ -34,4 +41,4 @@ RUN echo "$BUILD_DATE" > /build_date.txt
 FROM base_ready AS default
 RUN echo "DEFAULT" >> /variant.txt
 ENV CLI_ARGS=""
-CMD tail -f /dev/null
+CMD service ssh start && tail -f /dev/null
