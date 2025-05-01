@@ -174,8 +174,8 @@ def collate_fn(examples):
 
     target_pixel_values = torch.stack([example["pixel_values"] for example in examples])
     target_pixel_values = target_pixel_values.to(memory_format=torch.contiguous_format).float()
-    token_ids_clip = torch.stack([torch.tensor(example["token_ids_clip"]) for example in examples])
-    token_ids_t5 = torch.stack([torch.tensor(example["token_ids_t5"]) for example in examples])
+    token_ids_clip = torch.stack([example["token_ids_clip"].clone().detach() for example in examples])
+    token_ids_t5 = torch.stack([example["token_ids_t5"].clone().detach() for example in examples])
 
     return {
         "cond_pixel_values": cond_pixel_values,
