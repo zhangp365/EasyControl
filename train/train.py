@@ -829,6 +829,7 @@ def main(args):
         
     for epoch in range(first_epoch, args.num_train_epochs):
         transformer.train()
+        epoch_loss = 0
         for step, batch in enumerate(train_dataloader):
             models_to_accumulate = [transformer]
             with accelerator.accumulate(models_to_accumulate):
@@ -972,6 +973,7 @@ def main(args):
                 )
 
                 loss = loss.mean()
+                epoch_loss += loss.detach().item()
                 accelerator.backward(loss)
                 if accelerator.sync_gradients:
                     params_to_clip = (transformer.parameters())
@@ -1076,6 +1078,8 @@ def main(args):
                         img.save(os.path.join(save_folder, f"{idx}.jpg"))
                     del pipeline
 
+        epoch_loss = epoch_loss / len(train_dataloader)
+        accelerator.log({"epoch_loss": epoch_loss}, step=global_step)
     accelerator.wait_for_everyone()
     accelerator.end_training()
 
