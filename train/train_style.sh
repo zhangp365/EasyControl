@@ -28,7 +28,7 @@ CUDA_VISIBLE_DEVICES=0 accelerate launch --config_file $CONFIG train.py \
     --subject_test_images None \
     --test_h 1024 \
     --test_w 1024 \
-    --num_validation_images=2 \
-    --resume_from_checkpoint="$OUTPUT_DIR/checkpoint-8000" \
-    --pretrained_lora_path="$OUTPUT_DIR/checkpoint-8000/lora.safetensors" # 生成路径：style_model/checkpoint-1000/lora.safetensors
+    --num_validation_images=2 
+  #  --resume_from_checkpoint="$OUTPUT_DIR/checkpoint-8000" \
+  #  --pretrained_lora_path="$OUTPUT_DIR/checkpoint-8000/lora.safetensors" # 生成路径：style_model/checkpoint-1000/lora.safetensors
 # 
