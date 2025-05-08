@@ -143,8 +143,8 @@ class Predictor(BasePredictor):
         spatial_img: Path = Input(description= "spatial control image."),
         control_type: str = Input(
             description="Control type (now only support two types, pose and mine_craft).",
-            choices=["mine_craft", "pose"],
-            default="mine_craft",
+            choices=["Ghibli", "mine_craft", "pose", "canny", "depth"],
+            default="Ghibli",
         ),
         control_weight: float = Input(
             description="Control weights (must correspond to the control type).",
@@ -153,7 +153,7 @@ class Predictor(BasePredictor):
         extra_spatial_img: Path = Input(description= "extra spatial control image.", default=None),
         extra_control_type: str = Input(
             description="Extra control type (now only support two types, pose and mine_craft).",
-            choices=["mine_craft", "pose", ""],
+            choices=["Ghibli", "mine_craft", "pose", "canny", "depth", ""],
             default="",
         ),
         extra_control_weight: float = Input(

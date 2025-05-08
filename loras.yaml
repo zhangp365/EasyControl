@@ -2,6 +2,18 @@ pose:
   file: models/pose.safetensors
   repo_id: Xiaojiu-Z/EasyControl
 
+Ghibli:
+  file: models/Ghibli.safetensors
+  repo_id: Xiaojiu-Z/EasyControl
+
+canny:
+  file: models/canny.safetensors
+  repo_id: Xiaojiu-Z/EasyControl
+
+depth:
+  file: models/depth.safetensors
+  repo_id: Xiaojiu-Z/EasyControl
+
 mine_craft:
   file: lora_v2_12000steps.safetensors
   repo_id: zhangsongbo365/mine_craft
