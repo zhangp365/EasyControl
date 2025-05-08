@@ -1,0 +1,9 @@
+pose:
+  file: models/pose.safetensors
+  repo_id: Xiaojiu-Z/EasyControl
+
+mine_craft:
+  file: lora_v2_12000steps.safetensors
+  repo_id: zhangsongbo365/mine_craft
+
+
