@@ -33,7 +33,7 @@ build:
     - transformers==4.49.0
     - datasets
     - wandb
-    - yaml
+    - PyYAML
 
   # commands run after the environment is setup
   run:

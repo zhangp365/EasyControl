@@ -63,7 +63,7 @@ class Predictor(BasePredictor):
         self.lora_dict = {}
         try:
             with open("loras.yaml", "r") as f:
-                self.lora_dict = yaml.load(f)
+                self.lora_dict = yaml.safe_load(f)
             print(f"all loras: {self.lora_dict}")
         except Exception as e:
             print(f"Error loading loras.yaml: {e}")
