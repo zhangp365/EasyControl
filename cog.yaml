@@ -17,7 +17,7 @@ build:
   python_version: "3.10"
 
   # a list of packages in the format <package-name>==<version>
-  python_requirements:
+  python_packages: 
     - torch
     - torchvision
     - diffusers==0.32.2
