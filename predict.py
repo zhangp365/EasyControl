@@ -10,11 +10,12 @@ from typing import List
 from cog import BasePredictor, Input, Path
 from huggingface_hub import hf_hub_download
 import yaml
-# Assuming src is in the same directory or PYTHONPATH is set correctly
+# Assuming src is in the same ·directory or PYTHONPATH is set correctly
 from src.pipeline import FluxPipeline
 from src.transformer_flux import FluxTransformer2DModel
 from src.lora_helper import set_single_lora, set_multi_lora
 import logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(lineno)d - %(message)s')
 logger = logging.getLogger(__name__)
 
 # Define cache directory if needed, or rely on default huggingface_hub cache
