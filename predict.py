@@ -104,10 +104,10 @@ class Predictor(BasePredictor):
 
         # --- Load Base Model ---
         logger.info(f"Loading base pipeline from {base_path}")
-        self.pipe = FluxPipeline.from_pretrained(base_path, torch_dtype=torch.bfloat16)
+        self.pipe = FluxPipeline.from_pretrained(base_path, torch_dtype=torch.bfloat16, device=self.device)
         logger.info(f"Loading transformer from {base_path}")
         transformer = FluxTransformer2DModel.from_pretrained(
-            base_path, subfolder="transformer", torch_dtype=torch.bfloat16
+            base_path, subfolder="transformer", torch_dtype=torch.bfloat16, device=self.device
         )
         self.pipe.transformer = transformer
 
@@ -222,8 +222,8 @@ class Predictor(BasePredictor):
                 logger.error(f"Error applying LoRA: {e}")
                 raise
 
-        self.pipe.to(self.device)
-        logger.info("Pipeline moved to device.")
+        # self.pipe.to(self.device)
+        # logger.info("Pipeline moved to device.")
 
         # --- Handle Seeds ---
         if seed == -1:
