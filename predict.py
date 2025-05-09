@@ -143,7 +143,7 @@ class Predictor(BasePredictor):
         ),
         use_zero_init: bool = Input(description="Use CFG zero star.", default=True),
         zero_steps: int = Input(description="Zero init steps.", default=1, ge=0),
-        spatial_img: Path = Input(description= "spatial control image."),
+        image: Path = Input(description= "reference image."),
         control_type: str = Input(
             description="Control type (now only support two types, pose and mine_craft).",
             choices=["Ghibli", "mine_craft", "pose", "canny", "depth"],
@@ -153,7 +153,7 @@ class Predictor(BasePredictor):
             description="Control weights (must correspond to the control type).",
             default=1.0,
         ),
-        extra_spatial_img: Path = Input(description= "extra spatial control image.", default=None),
+        extra_image: Path = Input(description= "extra reference image.", default=None),
         extra_control_type: str = Input(
             description="Extra control type (now only support two types, pose and mine_craft).",
             choices=["Ghibli", "mine_craft", "pose", "canny", "depth"],
@@ -179,9 +179,9 @@ class Predictor(BasePredictor):
         """Run a single prediction on the model"""
         predict_start_time = time.time()
 
-        if extra_control_type and extra_spatial_img is None:
-            logger.error(f"Extra control type must be provided with extra spatial image, now is {extra_control_type} and {extra_spatial_img}, please check your input")
-            raise ValueError(f"Extra control type must be provided with extra spatial image, now is {extra_control_type} and {extra_spatial_img}, please check your input")
+        if extra_control_type and extra_image is None:
+            logger.error(f"Extra control type must be provided with extra image, now is {extra_control_type} and {extra_image}, please check your input")
+            raise ValueError(f"Extra control type must be provided with extra image, now is {extra_control_type} and {extra_image}, please check your input")
 
         if extra_control_type and extra_control_type not in self.lora_dict:
             logger.error(f"Extra control type '{extra_control_type}' not found in loras.yaml, can't support this control type")
@@ -222,9 +222,6 @@ class Predictor(BasePredictor):
                 logger.error(f"Error applying LoRA: {e}")
                 raise
 
-        # self.pipe.to(self.device)
-        # logger.info("Pipeline moved to device.")
-
         # --- Handle Seeds ---
         if seed == -1:
             seed = int.from_bytes(os.urandom(4), "big")
@@ -232,7 +229,7 @@ class Predictor(BasePredictor):
 
         # --- Load Spatial Image ---
         spatial_imgs_list = []
-        spatial_imgs = [img for img in [spatial_img, extra_spatial_img] if img]
+        spatial_imgs = [img for img in [image, extra_image] if img]
         if len(spatial_imgs) != control_type_num:
             logger.error(f"spatial image number {len(spatial_imgs)} is not equal to control type number {control_type_num}, please check your input")
             raise ValueError(f"spatial image number {len(spatial_imgs)} is not equal to control type number {control_type_num}, please check your input")
