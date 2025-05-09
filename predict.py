@@ -128,13 +128,13 @@ class Predictor(BasePredictor):
         ),
         height: int = Input(
             description="The height will decide by the first spatial image. no need to set it.",
-            ge=256,
+            ge=0,
             le=1600,
             default=0,
         ),
         width: int = Input(
             description="The width will decide by the first spatial image. no need to set it.",
-            ge=256,
+            ge=0,
             le=1600,
             default=0,
         ),
