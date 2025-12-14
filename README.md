@@ -10,7 +10,7 @@ EasyControl: Adding Efficient and Flexible Control for Diffusion Transformer
 
 > *[Yuxuan Zhang](https://xiaojiu-z.github.io/YuxuanZhang.github.io/), [Yirui Yuan](https://github.com/Reynoldyy), [Yiren Song](https://scholar.google.com.hk/citations?user=L2YS0jgAAAAJ), [Haofan Wang](https://haofanwang.github.io/), [Jiaming Liu](https://scholar.google.com/citations?user=SmL7oMQAAAAJ&hl=en)*
 > <br>
-> Tiamat AI, ShanghaiTech University, National University of Singapore, Liblib AI
+> The Chinese University of Hong Kong, ShanghaiTech University, Tiamat AI, Alibaba Group, National University of Singapore, Liblib AI
 
 <img src='assets/teaser.jpg'>
 
